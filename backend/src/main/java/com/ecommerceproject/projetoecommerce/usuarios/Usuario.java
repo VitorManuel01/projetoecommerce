@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
+
 @MappedSuperclass
 @EqualsAndHashCode(of = "id")
 public abstract class Usuario {
@@ -41,6 +42,5 @@ public abstract class Usuario {
     public void setId(UUID id) {
         this.id = id;
     }
-
     
 }

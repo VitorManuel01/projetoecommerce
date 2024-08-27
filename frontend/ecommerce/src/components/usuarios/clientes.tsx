@@ -1,12 +1,12 @@
 import './clientes.css'; // Importe o arquivo CSS
 
 interface ClientesProps {
-    id: number,
-    codCliente: number,
+    id?: number,
+    codCliente?: number,
     nomeCliente: string,
     CPF: string,
     sexo: string,
-    dataNascimento: string,
+    dataNascimento: string | Date,
     CEP: string,
     bairro: string,
     telefone: string

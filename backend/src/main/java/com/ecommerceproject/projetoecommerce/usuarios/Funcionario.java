@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity(name = "funcionarios")
 @Table(name = "funcionarios")
 @Getter
@@ -22,19 +21,12 @@ public class Funcionario extends Usuario{
 
     @Column(unique = true)
     private Long codFuncionario;
-
     private String nomeFuncionario;
-
     private String CPF;
-
     private String sexo;
-
     private LocalDate dataNascimento;
-
     private String CEP;
-
     private String bairro;
-
     private String telefone;
 
     public Long getCodFuncionario() {

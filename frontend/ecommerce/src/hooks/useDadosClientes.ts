@@ -1,10 +1,10 @@
 import axios, { AxiosPromise } from "axios"
-import { dadosClientes } from "../interface/dadosClientes";
+import { DadosClientes } from "../interface/DadosClientes"
 import { useQuery } from "@tanstack/react-query";
 
 const API_URL = 'http://127.0.0.1:8080'
 
-const fetchData = async (): AxiosPromise<dadosClientes[]> => { 
+const fetchData = async (): AxiosPromise<DadosClientes[]> => { 
     const response = axios.get(API_URL + "/cliente" );
     return response;
 }
