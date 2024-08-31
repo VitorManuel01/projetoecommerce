@@ -2,7 +2,6 @@ package com.ecommerceproject.projetoecommerce.usuarios;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,8 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Cliente extends Usuario {
-    @Column(unique = true)
-    private Long codCliente;
 
     private String nomeCliente;
 
@@ -33,14 +30,6 @@ public class Cliente extends Usuario {
     private String bairro;
 
     private String telefone;
-
-    public Long getCodCliente() {
-        return codCliente;
-    }
-
-    public void setCodCliente(Long codCliente) {
-        this.codCliente = codCliente;
-    }
 
     public String getNomeCliente() {
         return nomeCliente;
@@ -105,7 +94,6 @@ public class Cliente extends Usuario {
         this.setEmail(data.email());
         this.setLogin(data.login());
         this.setSenha(data.senha());
-        this.codCliente = data.codCliente();
         this.nomeCliente = data.nomeCliente();
         this.CPF = data.CPF();
         this.sexo = data.sexo();

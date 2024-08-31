@@ -1,6 +1,8 @@
 export interface DadosClientes {
     id?: number,
-    codCliente?: number,
+    login: string,
+    email: string,
+    senha: string,
     nomeCliente: string,
     CPF: string,
     sexo: string,

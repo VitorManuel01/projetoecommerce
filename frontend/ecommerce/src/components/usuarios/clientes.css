@@ -1,38 +1,64 @@
 /* clientes.css */
-.cadastro {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.cliente {
+  flex: 1 1 300px; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 300px */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.cliente h2,
+.cliente h3 {
+  margin: 10px 0;
+  color: #333;
+}
+
+.cliente h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.cliente h3 {
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+.cliente p {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 1.1em;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+
+.cliente p:last-of-type {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .cliente {
+    flex: 1 1 100%;
   }
-  
-  .cadastro h2,
-  .cadastro h3 {
-    margin: 10px 0;
-    color: #333;
-  }
-  
-  .cadastro h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  
-  .cadastro h3 {
+}
+
+@media (max-width: 480px) {
+  .cliente h2,
+  .cliente h3 {
     font-size: 1.2em;
-    font-weight: normal;
   }
-  
-  .cadastro p {
-    margin: 0;
-    padding: 10px 0;
-    font-size: 1.1em;
-    color: #555;
-    border-bottom: 1px solid #ddd;
+
+  .cliente p {
+    font-size: 1em;
   }
-  
-  .cadastro p:last-of-type {
-    border-bottom: none;
-  }
+}

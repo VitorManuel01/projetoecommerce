@@ -7,6 +7,6 @@ package com.ecommerceproject.projetoecommerce.usuarios;
 
 import java.time.LocalDate;
 
-public record  FuncionaioRequestDTO(String login, String email, String senha, Long codFuncionario, String nomeFuncionario, String CPF, String sexo, LocalDate dataNascimento, String CEP, String bairro, String telefone) {
+public record  FuncionaioRequestDTO(String login, String email, String senha, String nomeFuncionario, String CPF, String sexo, LocalDate dataNascimento, String CEP, String bairro, String telefone) {
 
 }

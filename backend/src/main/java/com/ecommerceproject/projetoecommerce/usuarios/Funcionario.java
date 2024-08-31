@@ -2,7 +2,6 @@ package com.ecommerceproject.projetoecommerce.usuarios;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,8 +18,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class Funcionario extends Usuario{
 
-    @Column(unique = true)
-    private Long codFuncionario;
     private String nomeFuncionario;
     private String CPF;
     private String sexo;
@@ -29,13 +26,6 @@ public class Funcionario extends Usuario{
     private String bairro;
     private String telefone;
 
-    public Long getCodFuncionario() {
-        return codFuncionario;
-    }
-
-    public void setCodFuncionario(Long codFuncionario) {
-        this.codFuncionario = codFuncionario;
-    }
 
     public String getNomeFuncionario() {
         return nomeFuncionario;
@@ -98,7 +88,6 @@ public class Funcionario extends Usuario{
         this.setEmail(data.email());
         this.setLogin(data.login());
         this.setSenha(data.senha());
-        this.codFuncionario = data.codFuncionario();
         this.nomeFuncionario = data.nomeFuncionario();
         this.CPF = data.CPF();
         this.sexo = data.sexo();
