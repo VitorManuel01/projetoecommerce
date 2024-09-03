@@ -28,7 +28,7 @@ export function Clientes({
 }: ClientesProps) {
     const dataNascimentoFormatada = new Date(dataNascimento).toLocaleDateString();
     return (
-        <div className="container">
+        <div className="card-grid">
             <div className="cliente">
                 <h2>Nome:</h2>
                 <p>{nomeCliente}</p>

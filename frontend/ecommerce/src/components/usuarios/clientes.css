@@ -1,64 +1,37 @@
-/* clientes.css */
-.container {
+/* Container para os Cartões de Clientes */
+.card-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 20px;
+  justify-content: center; /* Centraliza os cartões */
+  gap: 1.5rem; /* Espaçamento entre os cartões */
 }
 
+/* Cartão de Cliente */
 .cliente {
-  flex: 1 1 300px; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 300px */
-  margin: 10px;
-  padding: 20px;
-  border: 1px solid #ddd;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+  width: 300px; /* Largura fixa para os cartões */
 }
 
+.cliente:hover {
+  transform: translateY(-5px);
+}
+
+/* Títulos dos Campos */
 .cliente h2,
 .cliente h3 {
-  margin: 10px 0;
-  color: #333;
-}
-
-.cliente h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.cliente h3 {
-  font-size: 1.2em;
-  font-weight: normal;
-}
-
-.cliente p {
   margin: 0;
-  padding: 10px 0;
-  font-size: 1.1em;
-  color: #555;
-  border-bottom: 1px solid #ddd;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  color: #007bff;
 }
 
-.cliente p:last-of-type {
-  border-bottom: none;
-}
-
-@media (max-width: 768px) {
-  .cliente {
-    flex: 1 1 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .cliente h2,
-  .cliente h3 {
-    font-size: 1.2em;
-  }
-
-  .cliente p {
-    font-size: 1em;
-  }
+/* Valores dos Campos */
+.cliente p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0.5rem 0;
 }

@@ -39,8 +39,6 @@ function App() {
           <button onClick={handleOpenModal}>Novo Cadastro</button>
         </div>
       </div>
-
-
     </>
   )
 }

@@ -1,65 +1,80 @@
+/* Modal Overlay */
 .modal-overlay {
     position: fixed;
-    inset: 0;
-    background-color: rgba(0,0,0,0.4);
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semitransparent black background */
     display: flex;
     align-items: center;
     justify-content: center;
-
-    z-index: 999;
+    z-index: 1000;
 }
 
-.modal-overlay .modal-body {
-    background-color: rgb(0, 0, 0);
-    padding: 24px;
-    height: 75%;
-    width: 60%;
-    border-radius: 24px;
-
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-between;
+/* Modal Body */
+.modal-body {
+    background: rgb(0, 0, 0);
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh; /* Limits height to prevent overflow */
+    overflow-y: auto; /* Adds scrolling if content overflows */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }
 
-.modal-overlay .modal-body h2 {
-    font-size: 32px;
-}
-
-.modal-overlay .modal-body .input-container {
-    width: calc(100% - 24px);
-}
-
-.modal-overlay .modal-body input {
-    padding: 12px;
-    border: 2px solid #c6c5c5c5;
-    color: rgba(252, 252, 252, 0.9);
-    font-size: 18px;
-    line-height: 24px;
-    border-radius: 12px;
-    width: 100%;
-
-    margin-bottom: 12px;
-}
-
-.modal-overlay .modal-body label {
+/* Modal Title */
+.modal-body h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
     color: #ffffff;
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 18px;
 }
 
-.modal-overlay .modal-body .btn-secondary {
-    position: initial;
+/* Input Container */
+.input-container {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Input Fields */
+.input-container input,
+.input-container select {
     width: 100%;
-    margin-top: 32px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-.modal-overlay .modal-body .btn-secondary:hover {
-    background-color: #3a44f8;
-    transform: scale(1);
+/* Button Styles */
+.btn-secondary {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .modal-body {
+        padding: 1rem;
+        width: 95%;
+    }
 }
