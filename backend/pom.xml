@@ -60,14 +60,22 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-<dependency>
+	<dependency>
     <groupId>org.flywaydb</groupId>
     <artifactId>flyway-core</artifactId>
-</dependency>
-<dependency>
+	</dependency>
+	<dependency>
     <groupId>org.flywaydb</groupId>
     <artifactId>flyway-mysql</artifactId>
-</dependency>
+	</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
+		</dependency>
   </dependencies>
 
 	<build>
@@ -86,5 +94,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDadosClientesMutate } from '../../hooks/useDadosClientesMutate';
 import { DadosClientes } from '../../interface/DadosClientes';
-import "./cadastrarCliente.css"
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importa o CSS do Bootstrap
+import './cadastrarCliente.css'; // Importe seu CSS customizado se necessário
 
 interface InputProps {
     label: string;
@@ -11,31 +12,32 @@ interface InputProps {
     options?: string[]; // Optional prop for select input
 }
 
-
 interface ModalProps {
-
-    closeModal(): void
-
+    closeModal(): void;
 }
 
 // Update the Input component to handle select inputs
 const Input = ({ label, value, updateValue, type = "text", options }: InputProps) => {
     return (
-        <>
-            <label>{label}</label>
+        <div className="mb-3">
+            <label className="form-label">{label}</label>
             {type === 'select' ? (
-                <select value={value} onChange={(e) => updateValue(e.target.value)}>
+                <select className="form-select" value={value} onChange={(e) => updateValue(e.target.value)}>
                     {options?.map(option => (
                         <option key={option} value={option}>{option}</option>
                     ))}
                 </select>
             ) : (
-                <input type={type} value={value} onChange={(e) => updateValue(e.target.value)} />
+                <input
+                    className="form-control"
+                    type={type}
+                    value={value}
+                    onChange={(e) => updateValue(e.target.value)}
+                />
             )}
-        </>
+        </div>
     );
 };
-
 
 // Update the component to reflect the database schema
 export function CadastrarClientes({ closeModal }: ModalProps) {
@@ -75,30 +77,37 @@ export function CadastrarClientes({ closeModal }: ModalProps) {
     }, [isSuccess]);
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-body">
-                <h2>Cadastrar novo cliente</h2>
-                <form action="" method="post" className="input-container">
-                    <Input label="Login:" value={login} updateValue={setLogin} />
-                    <Input label="Email:" value={email} updateValue={setEmail} />
-                    <Input label="Senha:" value={senha} updateValue={setSenha} type="password" />
-                    <Input label="Nome:" value={nomeCliente} updateValue={setNome} />
-                    <Input label="CPF:" value={CPF} updateValue={setCPF} />
-                    <Input
-                        label="Sexo:"
-                        value={sexo}
-                        updateValue={setSexo}
-                        type="select"
-                        options={['M', 'F', 'Outro']} // Example options
-                    />
-                    <Input label="Data de Nascimento:" value={dataNascimento} updateValue={setDataNascimento} type="date" />
-                    <Input label="CEP:" value={CEP} updateValue={setCEP} />
-                    <Input label="Bairro:" value={bairro} updateValue={setBairro} />
-                    <Input label="Telefone:" value={telefone} updateValue={setTelefone} />
-                </form>
-                <button onClick={submit} className='btn-secondary'>
-                    {isPending ? "Cadastrando" : "Novo Cadastro"}
-                </button>
+        <div className="modal fade show d-block" tabIndex={-1} role="dialog">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Cadastrar Novo Cliente</h5>
+                    <button type="button" className="btn-close" aria-label="Close" onClick={closeModal}></button>
+                    </div>
+                    <div className="modal-body">
+                        <form>
+                            <Input label="Login:" value={login} updateValue={setLogin} />
+                            <Input label="Email:" value={email} updateValue={setEmail} />
+                            <Input label="Senha:" value={senha} updateValue={setSenha} type="password" />
+                            <Input label="Nome:" value={nomeCliente} updateValue={setNome} />
+                            <Input label="CPF:" value={CPF} updateValue={setCPF} />
+                            <Input
+                                label="Sexo:"
+                                value={sexo}
+                                updateValue={setSexo}
+                                type="select"
+                                options={['M', 'F', 'Outro']} // Example options
+                            />
+                            <Input label="Data de Nascimento:" value={dataNascimento} updateValue={setDataNascimento} type="date" />
+                            <Input label="CEP:" value={CEP} updateValue={setCEP} />
+                            <Input label="Bairro:" value={bairro} updateValue={setBairro} />
+                            <Input label="Telefone:" value={telefone} updateValue={setTelefone} />
+                        </form>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-primary" onClick={submit}> {isPending ? "Cadastrando..." : "Cadastrar"} </button>
+                    </div>
+                </div>
             </div>
         </div>
     );

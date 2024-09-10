@@ -1,46 +1,38 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import { useState } from 'react';
+//import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import ClienteList from './pages/ClienteList';
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Clientes } from './components/usuarios/clientes';
-// import { dadosClientes } from './interface/dadosClientes';
-import { useDadosClientes } from './hooks/useDadosClientes';
-import { CadastrarClientes } from "./components/cadastros/cadastrarCliente"
 
 function App() {
-  const { data } = useDadosClientes();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(prev => !prev)
-  }
-
   return (
-    <>
+    <Router>
       <div className="container">
-        <div className="container">
-          <h1>Clientes</h1>
-          <div className="card-grid">
-            {data?.map(dadosClientes => <Clientes key={dadosClientes.id}
-              id={dadosClientes.id}
-              login={dadosClientes.login}
-              email={dadosClientes.email}
-              senha={dadosClientes.senha}
-              nomeCliente={dadosClientes.nomeCliente}
-              CPF={dadosClientes.CPF} sexo={dadosClientes.sexo}
-              dataNascimento={dadosClientes.dataNascimento}
-              CEP={dadosClientes.CEP} bairro={dadosClientes.bairro}
-              telefone={dadosClientes.telefone} />)}
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Home</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/clientes">Lista de Clientes</Link>
+              </li>
+            </ul>
           </div>
-
-          {isModalOpen && <CadastrarClientes closeModal={handleOpenModal} />}
-          <button onClick={handleOpenModal}>Novo Cadastro</button>
+        </nav>
+        <div className="mt-4">
+          <Routes>
+            <Route path="/clientes" element={<ClienteList />} />
+          </Routes>
         </div>
       </div>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
+
