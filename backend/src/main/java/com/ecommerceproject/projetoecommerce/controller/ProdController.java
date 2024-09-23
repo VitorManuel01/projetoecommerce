@@ -2,6 +2,7 @@ package com.ecommerceproject.projetoecommerce.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +17,12 @@ import com.ecommerceproject.projetoecommerce.repositories.ProdutoRepository;
 
 @RestController
 @RequestMapping("produto")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProdController {
     
-
+    @Autowired
     private ProdutoRepository repository;
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void saveProduto(@RequestBody ProdutoRequestDTO data){
 
@@ -29,7 +30,6 @@ public class ProdController {
         repository.save(dadosProduto);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<ProdutoResponseDTO> getAll(){
         List<ProdutoResponseDTO> listaProdutos = repository.findAll().stream().map(ProdutoResponseDTO::new).toList();

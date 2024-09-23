@@ -16,11 +16,9 @@ import com.ecommerceproject.projetoecommerce.domain.usuarios.Administrador;
 import com.ecommerceproject.projetoecommerce.domain.usuarios.AuthenticationDTO;
 import com.ecommerceproject.projetoecommerce.domain.usuarios.LoginResponseDTO;
 import com.ecommerceproject.projetoecommerce.domain.usuarios.RegisterAdmDTO;
-import com.ecommerceproject.projetoecommerce.domain.usuarios.RegisterUserDTO;
 import com.ecommerceproject.projetoecommerce.domain.usuarios.Usuario;
 import com.ecommerceproject.projetoecommerce.infra.security.TokenService;
 import com.ecommerceproject.projetoecommerce.repositories.AdministradorRespository;
-import com.ecommerceproject.projetoecommerce.repositories.UsuarioRepository;
 
 @RestController
 @RequestMapping("auth")
@@ -33,8 +31,6 @@ public class AuthController {
     private AdministradorRespository admRepository;
     @Autowired
     private TokenService tokenService;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data){

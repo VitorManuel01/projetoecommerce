@@ -4,6 +4,7 @@
 //import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ClienteList from './pages/ClienteList';
+import ProdutosList from './pages/ProdutosList';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,12 +21,14 @@ function App() {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/clientes">Lista de Clientes</Link>
+                <Link className="nav-link" to="/produtos">Lista de Produtos</Link>
               </li>
             </ul>
           </div>
         </nav>
         <div className="mt-4">
           <Routes>
+            <Route path="/produtos" element={<ProdutosList />} />
             <Route path="/clientes" element={<ClienteList />} />
           </Routes>
         </div>
