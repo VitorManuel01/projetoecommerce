@@ -1,4 +1,4 @@
-package com.ecommerceproject.projetoecommerce.usuarios;
+package com.ecommerceproject.projetoecommerce.domain.usuarios;
 
 import java.time.LocalDate;
 
@@ -88,6 +88,7 @@ public class Funcionario extends Usuario{
         this.setEmail(data.email());
         this.setLogin(data.login());
         this.setSenha(data.senha());
+        this.setFuncao(data.funcao());
         this.nomeFuncionario = data.nomeFuncionario();
         this.CPF = data.CPF();
         this.sexo = data.sexo();
@@ -96,7 +97,5 @@ public class Funcionario extends Usuario{
         this.bairro = data.bairro();
         this.telefone = data.telefone();
     }
-
-    
     
 }

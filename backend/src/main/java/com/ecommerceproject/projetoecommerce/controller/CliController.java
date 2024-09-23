@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerceproject.projetoecommerce.usuarios.Cliente;
-import com.ecommerceproject.projetoecommerce.usuarios.ClienteRepository;
-import com.ecommerceproject.projetoecommerce.usuarios.ClienteRequestDTO;
-import com.ecommerceproject.projetoecommerce.usuarios.ClienteResponseDTO;
+import com.ecommerceproject.projetoecommerce.domain.usuarios.Cliente;
+import com.ecommerceproject.projetoecommerce.domain.usuarios.ClienteRequestDTO;
+import com.ecommerceproject.projetoecommerce.domain.usuarios.ClienteResponseDTO;
+import com.ecommerceproject.projetoecommerce.repositories.ClienteRepository;
 
 
 @RestController

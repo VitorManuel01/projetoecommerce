@@ -1,4 +1,4 @@
-package com.ecommerceproject.projetoecommerce.usuarios;
+package com.ecommerceproject.projetoecommerce.domain.usuarios;
 
 import java.time.LocalDate;
 
