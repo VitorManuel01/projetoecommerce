@@ -7,6 +7,7 @@ import ClienteList from './pages/ClienteList';
 import ProdutosList from './pages/ProdutosList';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './components/login/Login';
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
                 <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/clientes">Lista de Clientes</Link>
+                <Link className="nav-link" to="/login">Login</Link>
                 <Link className="nav-link" to="/produtos">Lista de Produtos</Link>
               </li>
             </ul>
@@ -29,7 +30,7 @@ function App() {
         <div className="mt-4">
           <Routes>
             <Route path="/produtos" element={<ProdutosList />} />
-            <Route path="/clientes" element={<ClienteList />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

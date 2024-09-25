@@ -2,10 +2,17 @@ import axios, { AxiosPromise } from "axios"
 import { DadosProdutos } from "../interface/DadosProdutos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const API_URL = 'http://127.0.0.1:8080'
 
-const postData = async (data: DadosProdutos): AxiosPromise<any> => { 
-    const response = axios.post(API_URL + "/produto", data);
+
+const postData = async (data: DadosProdutos): AxiosPromise<any> => {
+    // Obtenha o token do armazenamento local ou do contexto
+    const token = localStorage.getItem('token'); // ou use AuthContext para pegar o token
+
+    const response = axios.post("/produto", data, {
+        headers: {
+            Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+        },
+    });
     return response;
 }
 

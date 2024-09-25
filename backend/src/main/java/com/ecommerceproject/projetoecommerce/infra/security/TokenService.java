@@ -15,10 +15,11 @@ import com.ecommerceproject.projetoecommerce.domain.usuarios.Usuario;
 
 
 
+
 @Service
 public class TokenService {
 
-    @Value("$api.Security.token.secret")
+    @Value("${api.Security.token.secret}")
     private String secret;
 
     
@@ -26,10 +27,11 @@ public class TokenService {
     public String generateToken(Usuario usuario){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-
+            
             String token = JWT.create()
                                 .withIssuer("auth-api")
                                 .withSubject(usuario.getLogin())
+                                .withClaim("funcao", usuario.getFuncao().toString())
                                 .withExpiresAt(generateExpirationData())
                                 .sign(algorithm);
 
@@ -42,6 +44,7 @@ public class TokenService {
     public String validateToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            token = token.trim();
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
                     .build()

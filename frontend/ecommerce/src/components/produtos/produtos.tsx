@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'; // Certifique-se de importar o Bootstrap no seu projeto
 import './produtos.css'; // Importe seu CSS customizado se necessário
 import { Decimal } from 'decimal.js';
-
+import { useAuth } from '../../context/AuthProvider';
 // export interface DadosProdutos {
 //     codProd?: string,
 //     nome: string,

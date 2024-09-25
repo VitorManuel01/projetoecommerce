@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDadosProdutosMutate } from '../../hooks/useDadosProdutosMutate';
 import { DadosProdutos } from '../../interface/DadosProdutos';
 import { Decimal } from 'decimal.js';
+import { useAuth } from '../../context/AuthProvider';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa o CSS do Bootstrap
 import './cadastrarCliente.css'; // Importe seu CSS customizado se necessário
 
@@ -43,14 +44,6 @@ const Input = ({ label, value, updateValue, type = "text", options }: InputProps
     );
 };
 
-// export interface DadosProdutos {
-//     codProd?: string,
-//     nome: string,
-//     preco: Decimal,
-//     qtdEstoque: number,
-//     categoria: string,
-//     imagemUrl: string
-// }
 export function CadastrarProdutos({ closeModal }: ModalProps) {
     const [nome, setNome] = useState('');
     const [preco, setPreco] = useState<Decimal>(new Decimal(0));
@@ -59,6 +52,10 @@ export function CadastrarProdutos({ closeModal }: ModalProps) {
     const [imagemUrl, setImagemUrl] = useState('');
 
     const { mutate, isSuccess, isPending } = useDadosProdutosMutate();
+    const {funcao} = useAuth();
+    if (funcao !== "ROLE_ADMIN") {
+        return <div>Você não tem permissão para acessar esta página.</div>;
+    }
 
     const submit = () => {
         const dadosProdutos: DadosProdutos = {
@@ -82,7 +79,7 @@ export function CadastrarProdutos({ closeModal }: ModalProps) {
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Cadastrar Novo Cliente</h5>
+                        <h5 className="modal-title">Cadastrar Novo Produto</h5>
                     <button type="button" className="btn-close" aria-label="Close" onClick={closeModal}></button>
                     </div>
                     <div className="modal-body">
@@ -92,6 +89,7 @@ export function CadastrarProdutos({ closeModal }: ModalProps) {
                             <Input label="Quantidade em Estoque:" value={qtdEstoque} updateValue={setQtdEstoque}/>
                             <Input label="Categoria:" value={categoria} updateValue={setCategoria} />
                             <Input label="ImagemUrl:" value={imagemUrl} updateValue={setImagemUrl} />
+                            
                         </form>
                     </div>
                     <div className="modal-footer">

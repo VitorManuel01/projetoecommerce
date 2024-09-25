@@ -1,10 +1,11 @@
 package com.ecommerceproject.projetoecommerce.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +23,8 @@ import com.ecommerceproject.projetoecommerce.repositories.AdministradorResposito
 
 @RestController
 @RequestMapping("auth")
+//@CrossOrigin(origins = "http://localhost:5173",  allowCredentials = "true")
 public class AuthController {
-
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -33,16 +34,27 @@ public class AuthController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data){
+    public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data) {
+        try {
+            if (data != null) {
+                System.out.println("Existe dados");
+                System.out.println("Email/Login: " + data.emailOrLogin() + ", Password: " + data.senha());
+            } else {
+                System.out.println("Não existe dados");
+            }
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.emailOrLogin(), data.senha());
+            var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.emailOrLogin(), data.senha());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
+            System.out.println("Authentication successful: " + auth.isAuthenticated());
+            System.out.println("User details: " + auth.getPrincipal());
+            var token = tokenService.generateToken((Usuario) auth.getPrincipal());
 
-
-        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
-
-        
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+            // System.out.println("Login from token: " );
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch (AuthenticationException e) {
+            System.out.println("Authentication failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
 
     }
 
@@ -53,9 +65,9 @@ public class AuthController {
         } else if (this.admRepository.findByLogin(dataAdm.login()) != null) {
             return ResponseEntity.badRequest().build();
         }
-    
+
         String encryptedPassword = new BCryptPasswordEncoder().encode(dataAdm.senha());
-    
+
         // Criar um novo Administrador, que é um Usuario
         Administrador novoAdministrador = new Administrador();
         novoAdministrador.setLogin(dataAdm.login());
@@ -71,10 +83,10 @@ public class AuthController {
         novoAdministrador.setEndereco(dataAdm.endereco());
         novoAdministrador.setBairro(dataAdm.bairro());
         novoAdministrador.setTelefone(dataAdm.telefone());
-    
+
         // Salvar o novo Administrador (que também será salvo na tabela usuarios)
         this.admRepository.save(novoAdministrador);
-    
+
         return ResponseEntity.ok().build();
     }
 }

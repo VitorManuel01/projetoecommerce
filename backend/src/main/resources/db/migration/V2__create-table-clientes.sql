@@ -1,5 +1,5 @@
 CREATE TABLE clientes (
-    id BINARY(16) PRIMARY KEY,  -- Referência à tabela usuarios
+    id VARCHAR(36) PRIMARY KEY,  -- Referência à tabela usuarios
     nome_cliente VARCHAR(255) NOT NULL,
     cpf VARCHAR(14) NOT NULL,
     sexo CHAR(1),
