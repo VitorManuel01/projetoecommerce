@@ -59,7 +59,7 @@ public class AuthController {
     }
 
     @PostMapping("/registerADM")
-    public ResponseEntity registerADM(@RequestBody @Validated RegisterAdmDTO dataAdm) {
+    public ResponseEntity<String>  registerADM(@RequestBody @Validated RegisterAdmDTO dataAdm) {
         if (this.admRepository.findByEmail(dataAdm.email()) != null) {
             return ResponseEntity.badRequest().build();
         } else if (this.admRepository.findByLogin(dataAdm.login()) != null) {

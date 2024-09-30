@@ -3,6 +3,7 @@ import { Produtos } from '../components/produtos/produtos';
 import { useDadosProdutos } from '../hooks/useDadosProdutos';
 import { CadastrarProdutos } from "../components/cadastros/inserirProdutos"
 import { useAuth } from '../context/AuthProvider';
+import "../styles/ProdutoList.css"
 
 function ProdutoList() {
   const { data } = useDadosProdutos();
@@ -14,33 +15,34 @@ function ProdutoList() {
   }
 
   return (
-    <>
-      <div className="container">
-        <div className="container">
-          <h1>Produtos</h1>
-          <div className="card-grid">
-            {data?.map(dadosProdutos => <Produtos key={dadosProdutos.codProd}
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Produtos</h1>
+      <div className="row">
+        {data?.map(dadosProdutos => (
+          <div className="col-md-4 col-sm-6 mb-4" key={dadosProdutos.codProd}>
+            <Produtos 
               codProd={dadosProdutos.codProd}
               nome={dadosProdutos.nome}
               preco={dadosProdutos.preco}
               qtdEstoque={dadosProdutos.qtdEstoque}
               categoria={dadosProdutos.categoria}
-              imagemUrl={dadosProdutos.imagemUrl} />)}
+              imagemUrl={dadosProdutos.imagemUrl} 
+            />
           </div>
-              
-                     
-      {isAuthenticated && (
-        <>
-          <button onClick={handleOpenModal}>Novo Cadastro</button>
-          <button onClick={logout}>Logout</button>
-          {isModalOpen && <CadastrarProdutos closeModal={handleOpenModal} />}
-        </>
-      )}
-        </div>
+        ))}
       </div>
-    </>
-  )
 
+      {isAuthenticated && (
+        <div className="text-center mt-4">
+          <button className="btn btn-primary me-2" onClick={handleOpenModal}>Novo Cadastro</button>
+          <button className="btn btn-secondary" onClick={logout}>Logout</button>
+        </div>
+      )}
+
+      {isModalOpen && <CadastrarProdutos closeModal={handleOpenModal} />}
+    </div>
+  );
 }
-export default ProdutoList
+
+export default ProdutoList;
 

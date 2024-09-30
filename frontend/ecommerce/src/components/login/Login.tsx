@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useDadosLoginMutate } from "../../hooks/useDadosLoginMutate";
 
-const Login = () =>{
-    const [ emailOrLogin, setEmailOrLogin ] = useState("");
-    const [ senha, setSenha ] = useState("");
-    const { mutate, isPending, error, isSuccess } = useDadosLoginMutate();
+const Login = () => {
+  const [emailOrLogin, setEmailOrLogin] = useState("");
+  const [senha, setSenha] = useState("");
+  const { mutate, isPending, error, isSuccess } = useDadosLoginMutate();
 
-    const handleLogin = (e: React.FormEvent) =>{
-        e.preventDefault();
-        mutate({emailOrLogin, senha})
-    }
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutate({ emailOrLogin, senha })
+  }
 
-    return(
-        <div>
+  return (
+      <div>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div>
@@ -36,10 +36,10 @@ const Login = () =>{
           </button>
           {isSuccess && <p style={{ color: "green" }}>Login realizado com sucesso!</p>}
           {error && <p style={{ color: "red" }}>Erro ao realizar login</p>}
+
         </form>
       </div>
-
-    );
+  );
 };
 
 export default Login;

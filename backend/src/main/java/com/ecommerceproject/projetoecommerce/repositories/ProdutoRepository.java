@@ -7,5 +7,5 @@ import com.ecommerceproject.projetoecommerce.domain.produto.Produto;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, String> {
-
+    
 }
