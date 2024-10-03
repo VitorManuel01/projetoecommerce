@@ -90,10 +90,10 @@ public abstract class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        if(this.email != null){
-            return this.email;
-        }else{
+        if(this.login != null){
             return this.login;
+        }else{
+            return this.email;
         }
     }
 

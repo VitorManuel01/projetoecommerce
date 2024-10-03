@@ -48,20 +48,20 @@ public class Administrador extends Usuario implements IsAdmin{
     this.telefone = telefone;
 }
 
-    // public Administrador(AdministradorRequestDTO data) {
-    //     super();
-    //     this.setEmail(data.email());
-    //     this.setLogin(data.login());
-    //     this.setSenha(data.senha());
-    //     this.admin = data.admin();
-    //     this.nome = data.nome();
-    //     this.CPF = data.CPF();
-    //     this.sexo = data.sexo();
-    //     this.dataNascimento = data.dataNascimento();
-    //     this.CEP = data.CEP();
-    //     this.endereco = data.endereco();
-    //     this.bairro = data.bairro();
-    //     this.telefone = data.telefone();
-    // }
+    public Administrador( RegisterAdmDTO data) {
+        super();
+        this.setLogin(data.login());
+        this.setEmail(data.email());
+        this.setSenha(data.senha());
+        this.admin = data.admin();
+        this.nome = data.nome();;
+        this.CPF = data.CPF();
+        this.sexo = data.sexo();
+        this.dataNascimento = data.dataNascimento();
+        this.CEP = data.CEP();
+        this.endereco = data.endereco();
+        this.bairro = data.bairro();
+        this.telefone = data.telefone();
+    }
 
 }
