@@ -1,56 +1,70 @@
 package com.ecommerceproject.projetoecommerce.controller;
 
-import com.ecommerceproject.projetoecommerce.domain.produto.Produto;
-import com.ecommerceproject.projetoecommerce.domain.produto.ProdutoRequestDTO;
-import com.ecommerceproject.projetoecommerce.domain.produto.ProdutoResponseDTO;
-import com.ecommerceproject.projetoecommerce.domain.usuarios.Administrador;
-import com.ecommerceproject.projetoecommerce.domain.usuarios.RegisterAdmDTO;
-import com.ecommerceproject.projetoecommerce.repositories.ProdutoRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import org.mockito.InjectMocks;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@ActiveProfiles("test")
+import com.ecommerceproject.projetoecommerce.config.MockMvcConfig;
+import com.ecommerceproject.projetoecommerce.config.TestSecurityConfig;
+import com.ecommerceproject.projetoecommerce.domain.produto.Produto;
+import com.ecommerceproject.projetoecommerce.domain.produto.ProdutoRequestDTO;
+import com.ecommerceproject.projetoecommerce.infra.security.TokenService;
+import com.ecommerceproject.projetoecommerce.repositories.ProdutoRepository;
+import com.ecommerceproject.projetoecommerce.repositories.UsuarioRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.persistence.EntityManager;
+
+
+@Import(MockMvcConfig.class)
+@WebMvcTest(ProdController.class)
 @AutoConfigureMockMvc
+@ContextConfiguration(classes = {TestSecurityConfig.class, ProdController.class})
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ProdControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private EntityManager entityManager;
+
+    @MockBean
+    private TokenService tokenService;
+
+    @MockBean
+    private UsuarioRepository usuarioRepository;
 
     @MockBean
     private ProdutoRepository repository;
@@ -125,7 +139,6 @@ void getAll() throws Exception {
 
         verify(repository, times(1)).delete(produto);
     }
-
 
 @Test
 @WithMockUser(roles = "ADMIN")

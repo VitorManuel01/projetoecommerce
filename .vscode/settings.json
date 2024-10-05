@@ -7,5 +7,8 @@
                 "path": "C:\\Program Files\\Java\\jdk-22"
             }
         ],
-        "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-22"
+        "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-22",
+        "java.debug.settings.onBuildFailureProceed": true,
+        "java.debug.settings.exceptionBreakpoint.skipClasses": [],
+        "java.maven.downloadSources": true
 }

@@ -1,5 +1,5 @@
 import axios, { AxiosPromise } from "axios"
-import { DadosClientes } from "../interface/DadosClientes";
+import { DadosClientes } from "../interface/dadosClientes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const API_URL = 'http://127.0.0.1:8080'

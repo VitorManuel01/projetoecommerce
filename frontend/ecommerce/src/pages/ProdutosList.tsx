@@ -16,7 +16,7 @@ function ProdutoList() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Produtos</h1>
+      <h1 className="text-center mb-4">Livros</h1>
       <div className="row">
         {data?.map(dadosProdutos => (
           <div className="col-md-4 col-sm-6 mb-4" key={dadosProdutos.codProd}>

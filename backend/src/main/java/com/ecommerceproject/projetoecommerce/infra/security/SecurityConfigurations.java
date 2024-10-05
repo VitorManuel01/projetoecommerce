@@ -36,13 +36,17 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registerADM").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/cliente").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/cliente").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/cliente").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/funcionario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/produto").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/produto/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/produto/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/produto").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/carrinho/{cartId}/comprar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/carrinho").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/carrinho/**").permitAll()
                         .anyRequest().authenticated())
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();

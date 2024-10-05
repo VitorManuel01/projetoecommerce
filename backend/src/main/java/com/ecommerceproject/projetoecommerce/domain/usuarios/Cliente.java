@@ -1,17 +1,23 @@
 package com.ecommerceproject.projetoecommerce.domain.usuarios;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.ecommerceproject.projetoecommerce.domain.pedido.Pedido;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "clientes")
 @Table(name = "clientes")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -31,63 +37,22 @@ public class Cliente extends Usuario {
 
     private String telefone;
 
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String cPF) {
-        CPF = cPF;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getCEP() {
-        return CEP;
-    }
-
-    public void setCEP(String cEP) {
-        CEP = cEP;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos;
 
 
+    public Cliente( String senha,boolean admin, String nomeCliente,  
+                     String CPF, String sexo, LocalDate dataNascimento,String CEP,  String bairro, 
+                       String telefone) {
+    this.nomeCliente = nomeCliente;
+    this.CPF = CPF;
+    this.sexo = sexo;
+    this.dataNascimento = dataNascimento;
+    this.CEP = CEP;
+    this.bairro = bairro;
+    this.telefone = telefone;
+}
 
     public Cliente(ClienteRequestDTO data) {
         super();

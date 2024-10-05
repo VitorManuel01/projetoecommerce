@@ -14,7 +14,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.ecommerceproject.projetoecommerce.domain.usuarios.Usuario;
 
 
-
+    
 
 @Service
 public class TokenService {
@@ -23,7 +23,7 @@ public class TokenService {
     private String secret;
 
     
-
+    
     public String generateToken(Usuario usuario){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -31,6 +31,7 @@ public class TokenService {
             String token = JWT.create()
                                 .withIssuer("auth-api")
                                 .withSubject(usuario.getLogin())
+                                .withClaim("id", usuario.getId().toString())
                                 .withClaim("funcao", usuario.getFuncao().toString())
                                 .withExpiresAt(generateExpirationData())
                                 .sign(algorithm);

@@ -54,7 +54,7 @@ public class Administrador extends Usuario implements IsAdmin{
         this.setEmail(data.email());
         this.setSenha(data.senha());
         this.admin = data.admin();
-        this.nome = data.nome();;
+        this.nome = data.nome();
         this.CPF = data.CPF();
         this.sexo = data.sexo();
         this.dataNascimento = data.dataNascimento();

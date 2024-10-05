@@ -1,6 +1,29 @@
-import React from 'react';
+import { useDadosProdutos } from '../hooks/useDadosProdutos'; // Ajuste o caminho conforme necessário
+import { useCarrinho  } from '../hooks/useDadosCarrinho'; // Importando o hook do carrinho
+import { ComprarProdutoRequestDTO } from '../interface/ComprarProdutoRequestDTO';
+
 
 const Home: React.FC = () => {
+
+  const { data: produtos, isLoading, error } = useDadosProdutos();
+  const {addItem } = useCarrinho();
+
+
+
+  const handleComprar = (codProd: string, quantidade: number) => {
+      const data: ComprarProdutoRequestDTO = { codProd, quantidade };
+      addItem(data);
+  };
+
+  if (isLoading) {
+      return <div>Carregando...</div>;
+  }
+
+  if (error) {
+      return <div>Erro ao carregar produtos: {error.message}</div>;
+  }
+
+
   return (
     <div>
       {/* Carrossel */}
@@ -47,46 +70,26 @@ const Home: React.FC = () => {
       <div className="container mt-5">
         <h2>Livros Populares</h2>
         <div className="row">
-          <div className="col-md-3">
-            <div className="card">
-              <img src="https://via.placeholder.com/150" className="card-img-top" alt="Livro 1" />
-              <div className="card-body">
-                <h5 className="card-title">Livro 1</h5>
-                <p className="card-text">Uma breve descrição do livro.</p>
-                <a href="#" className="btn btn-primary">Comprar</a>
+          {produtos && produtos.map(produto => (
+            <div className="col-md-3" key={produto.codProd}> {/* Usar o ID como chave */}
+              <div className="card">
+                <img src={produto.imagemUrl} className="card-img-top" alt={produto.nome} />
+                <div className="card-body">
+                  <h5 className="card-title">{produto.nome}</h5>
+                  <p className="card-text">Preço: R$ {produto.preco.toFixed(2)}</p>
+                  <p className="card-text">{produto.qtdEstoque} em estoque</p>
+                  <button className="btn btn-primary"
+                    onClick={() => {
+                      if (produto.codProd) {
+                        handleComprar(produto.codProd, 1); // Chama a função apenas se codProd estiver definido
+                      }else{
+                        console.log("SE FUDEU OTÁRIO");
+                      }
+                    }}>Comprar</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-md-3">
-            <div className="card">
-              <img src="https://via.placeholder.com/150" className="card-img-top" alt="Livro 2" />
-              <div className="card-body">
-                <h5 className="card-title">Livro 2</h5>
-                <p className="card-text">Uma breve descrição do livro.</p>
-                <a href="#" className="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="card">
-              <img src="https://via.placeholder.com/150" className="card-img-top" alt="Livro 3" />
-              <div className="card-body">
-                <h5 className="card-title">Livro 3</h5>
-                <p className="card-text">Uma breve descrição do livro.</p>
-                <a href="#" className="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="card">
-              <img src="https://via.placeholder.com/150" className="card-img-top" alt="Livro 4" />
-              <div className="card-body">
-                <h5 className="card-title">Livro 4</h5>
-                <p className="card-text">Uma breve descrição do livro.</p>
-                <a href="#" className="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

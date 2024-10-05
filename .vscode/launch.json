@@ -2,6 +2,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Run JUnit Tests Programmatically",
+            "request": "launch",
+            "mainClass": "com.ecommerceproject.projetoecommerce.ProjetoecommerceApplicationTests",  // Use your fully-qualified class name
+            "projectName": "projetoecommerce",    // Your project name
+            "cwd": "${workspaceFolder}"         // Working directory
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-ProjetoecommerceApplication<projetoecommerce>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

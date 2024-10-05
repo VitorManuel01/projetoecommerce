@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDadosClientesMutate } from '../../hooks/useDadosClientesMutate';
-import { DadosClientes } from '../../interface/DadosClientes';
+import { DadosClientes } from '../../interface/dadosClientes';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa o CSS do Bootstrap
 import './cadastrarCliente.css'; // Importe seu CSS customizado se necessário
 
@@ -16,7 +16,6 @@ interface ModalProps {
     closeModal(): void;
 }
 
-// Update the Input component to handle select inputs
 const Input = ({ label, value, updateValue, type = "text", options }: InputProps) => {
     return (
         <div className="mb-3">
@@ -39,7 +38,6 @@ const Input = ({ label, value, updateValue, type = "text", options }: InputProps
     );
 };
 
-// Update the component to reflect the database schema
 export function CadastrarClientes({ closeModal }: ModalProps) {
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
@@ -52,7 +50,7 @@ export function CadastrarClientes({ closeModal }: ModalProps) {
     const [bairro, setBairro] = useState('');
     const [telefone, setTelefone] = useState('');
 
-    const { mutate, isSuccess, isPending } = useDadosClientesMutate();
+    const { mutate, isSuccess: isCadastroSuccsess, isPending } = useDadosClientesMutate();
 
     const submit = () => {
         const dadosClientes: DadosClientes = {
@@ -60,10 +58,10 @@ export function CadastrarClientes({ closeModal }: ModalProps) {
             email,
             senha,
             nomeCliente,
-            CPF,
+            CPF: CPF.replace(/\D/g, ''), // Remover caracteres não numéricos do CPF
             sexo,
-            dataNascimento,
-            CEP,
+            dataNascimento, // O campo está sendo enviado diretamente, já formatado como string
+            CEP: CEP.replace(/\D/g, ''), // Remover caracteres não numéricos do CEP
             bairro,
             telefone
         };
@@ -72,17 +70,18 @@ export function CadastrarClientes({ closeModal }: ModalProps) {
     };
 
     useEffect(() => {
-        if (!isSuccess) return;
-        closeModal();
-    }, [isSuccess]);
+        if (isCadastroSuccsess) {
+            closeModal(); // Fecha o modal após o sucesso
+        }
+    }, [isCadastroSuccsess]);
 
     return (
         <div className="modal fade show d-block" tabIndex={-1} role="dialog">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Cadastrar Novo Cliente</h5>
-                    <button type="button" className="btn-close" aria-label="Close" onClick={closeModal}></button>
+                        <h5 className="modal-title">Cadastrar</h5>
+                        <button type="button" className="btn-close" aria-label="Close" onClick={closeModal}></button>
                     </div>
                     <div className="modal-body">
                         <form>
@@ -96,16 +95,19 @@ export function CadastrarClientes({ closeModal }: ModalProps) {
                                 value={sexo}
                                 updateValue={setSexo}
                                 type="select"
-                                options={['M', 'F', 'Outro']} // Example options
+                                options={['M', 'F', 'Outro']} // Exemplo de opções
                             />
                             <Input label="Data de Nascimento:" value={dataNascimento} updateValue={setDataNascimento} type="date" />
                             <Input label="CEP:" value={CEP} updateValue={setCEP} />
                             <Input label="Bairro:" value={bairro} updateValue={setBairro} />
                             <Input label="Telefone:" value={telefone} updateValue={setTelefone} />
                         </form>
+                        
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary" onClick={submit}> {isPending ? "Cadastrando..." : "Cadastrar"} </button>
+                        <button type="button" className="btn btn-primary" onClick={submit}>
+                            {isPending ? "Cadastrando..." : "Cadastrar"}
+                        </button>
                     </div>
                 </div>
             </div>
